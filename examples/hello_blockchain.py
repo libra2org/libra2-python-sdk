@@ -1,15 +1,16 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 """
 This example depends on the hello_blockchain.move module having already been published to the destination blockchain.
 
 One method to do so is to use the CLI:
-    * Acquire the Aptos CLI
+    * Acquire the Libra2 CLI
     * `cd ~`
-    * `aptos init`
-    * `cd ~/aptos-core/aptos-move/move-examples/hello_blockchain`
-    * `aptos move publish --named-addresses hello_blockchain=${your_address_from_aptos_init}`
+    * `libra2 init`
+    * `cd ~/libra2-core/libra2-move/move-examples/hello_blockchain`
+    * `libra2 move publish --named-addresses hello_blockchain=${your_address_from_aptos_init}`
     * `python -m examples.hello-blockchain ${your_address_from_aptos_init}`
 """
 
@@ -18,18 +19,18 @@ import os
 import sys
 from typing import Any, Dict, Optional
 
-from aptos_sdk.account import Account
-from aptos_sdk.account_address import AccountAddress
-from aptos_sdk.aptos_cli_wrapper import AptosCLIWrapper
-from aptos_sdk.async_client import (
+from libra2_sdk.account import Account
+from libra2_sdk.account_address import AccountAddress
+from libra2_sdk.libra2_cli_wrapper import Libra2CLIWrapper
+from libra2_sdk.async_client import (
     ClientConfig,
     FaucetClient,
     ResourceNotFound,
     RestClient,
 )
-from aptos_sdk.bcs import Serializer
-from aptos_sdk.package_publisher import PackagePublisher
-from aptos_sdk.transactions import (
+from libra2_sdk.bcs import Serializer
+from libra2_sdk.package_publisher import PackagePublisher
+from libra2_sdk.transactions import (
     EntryFunction,
     TransactionArgument,
     TransactionPayload,
@@ -73,7 +74,7 @@ async def publish_contract(package_dir: str) -> AccountAddress:
     faucet_client = FaucetClient(FAUCET_URL, rest_client, FAUCET_AUTH_TOKEN)
     await faucet_client.fund_account(contract_publisher.address(), 10_000_000)
 
-    AptosCLIWrapper.compile_package(
+    Libra2CLIWrapper.compile_package(
         package_dir, {"hello_blockchain": contract_publisher.address()}
     )
 

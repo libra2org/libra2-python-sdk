@@ -1,4 +1,5 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import annotations
@@ -10,7 +11,7 @@ from typing import Dict, List, Tuple
 
 from .account import Account
 from .account_address import AccountAddress
-from .aptos_cli_wrapper import AptosCLIWrapper
+from .libra2_cli_wrapper import Libra2CLIWrapper
 from .async_client import RestClient
 from .ed25519 import PrivateKey
 from .package_publisher import PackagePublisher
@@ -22,7 +23,7 @@ async def publish_package(
     signer: Account,
     rest_api: str,
 ):
-    AptosCLIWrapper.compile_package(package_dir, named_addresses)
+    Libra2CLIWrapper.compile_package(package_dir, named_addresses)
 
     rest_client = RestClient(rest_api)
     publisher = PackagePublisher(rest_client)
@@ -39,7 +40,7 @@ def key_value(indata: str) -> Tuple[str, AccountAddress]:
 
 
 async def main(args: List[str]):
-    parser = argparse.ArgumentParser(description="Aptos Pyton CLI")
+    parser = argparse.ArgumentParser(description="Libra2 Python CLI")
     parser.add_argument(
         "command", type=str, help="The command to execute", choices=["publish-package"]
     )
@@ -60,7 +61,7 @@ async def main(args: List[str]):
     )
     parser.add_argument(
         "--rest-api",
-        help="The REST API to send queries to, e.g., https://testnet.aptoslabs.com/v1",
+        help="The REST API to send queries to, e.g., https://testnet.libra2.org/v1",
         type=str,
     )
     parsed_args = parser.parse_args(args)
@@ -73,9 +74,9 @@ async def main(args: List[str]):
         if parsed_args.rest_api is None:
             parser.error("Missing required argument '--rest-api'")
 
-        if not AptosCLIWrapper.does_cli_exist():
+        if not Libra2CLIWrapper.does_cli_exist():
             parser.error(
-                "Missing Aptos CLI. Export its path to APTOS_CLI_PATH environmental variable."
+                "Missing Libra2 CLI. Export its path to LIBRA2_CLI_PATH environmental variable."
             )
 
         if parsed_args.private_key_path is None:

@@ -1,9 +1,9 @@
-# Aptos Python SDK
+# Libra2 Python SDK
 [![Discord][discord-image]][discord-url]
 [![PyPI Package Version][pypi-image-version]][pypi-url]
 [![PyPI Package Downloads][pypi-image-downloads]][pypi-url]
 
-This provides basic functionalities to interact with [Aptos](https:/github.com/aptos-labs/aptos-core/). Get started [here](https://aptos.dev/guides/system-integrators-guide/#getting-started).
+This provides basic functionalities to interact with [Libra2](https://libra2.org).
 
 Currently, this is still in development and may not be suitable for production purposes.
 
@@ -22,29 +22,29 @@ poetry install
 make test
 ```
 
-## E2E testing and Using the Aptos CLI
+## E2E testing and Using the Libra2 CLI
 
-* Download and install the [Aptos CLI](https://aptos.dev/tools/aptos-cli/use-cli/running-a-local-network).
-* Set the environment variable `APTOS_CLI_PATH` to the full path of the CLI.
-* Retrieve the [Aptos Core Github Repo](https://github.com/aptos-labs/aptos-core) (git clone https://github.com/aptos-labs/aptos-core)
-* Set the environment variable `APTOS_CORE_REPO` to the full path of the Repository.
+* Download and install the Libra2 CLI.
+* Set the environment variable `LIBRA2_CLI_PATH` to the full path of the CLI.
+* Retrieve the Libra2 Core Github Repo if you plan to run the Move examples locally.
+* Set the environment variable `LIBRA2_CORE_REPO` to the full path of the Repository.
 * `make integration_test`
 
 You can do this a bit more manually by:
 
-First, run a local testnet (run this from the root of aptos-core):
+First, run a local testnet (run this from the root of the Libra2 core checkout):
 
 ```bash
-aptos node run-local-testnet --force-restart --assume-yes --with-indexer-api
+libra2 node run-local-testnet --force-restart --assume-yes --with-indexer-api
 ```
 
 Next, tell the end-to-end tests to talk to this locally running testnet:
 
 ```bash
-export APTOS_CORE_REPO="/path/to/repo"
-export APTOS_FAUCET_URL="http://127.0.0.1:8081"
-export APTOS_INDEXER_URL="http://127.0.0.1:8090/v1/graphql"
-export APTOS_NODE_URL="http://127.0.0.1:8080/v1"
+export LIBRA2_CORE_REPO="/path/to/repo"
+export LIBRA2_FAUCET_URL="http://127.0.0.1:8081"
+export LIBRA2_INDEXER_URL="http://127.0.0.1:8090/v1/graphql"
+export LIBRA2_NODE_URL="http://127.0.0.1:8080/v1"
 ```
 
 Finally run the tests:
@@ -53,14 +53,14 @@ Finally run the tests:
 make examples
 ```
 
-Integration Testing Using the Aptos CLI:
+Integration Testing Using the Libra2 CLI:
 
 ```bash
 make integration_test
 ```
 
 > [!NOTE]
-> The Python SDK does not require the Indexer, if you would prefer to test without it, unset or do not set the environmental variable `APTOS_INDEXER_URL` and exclude `--with-indexer-api` from running the aptos node software.
+> The Python SDK does not require the Indexer, if you would prefer to test without it, unset or do not set the environmental variable `LIBRA2_INDEXER_URL` and exclude `--with-indexer-api` from running the Libra2 node software.
 
 ## Autoformatting
 ```bash
@@ -74,16 +74,16 @@ make lint
 
 ## Package Publishing
 
-* Download the [Aptos CLI](https://aptos.dev/tools/aptos-cli/install-cli/).
-* Set the environment variable `APTOS_CLI_PATH` to the full path of the CLI.
-* `poetry run python -m aptos_sdk.cli` and set the appropriate command-line parameters
+* Download the Libra2 CLI.
+* Set the environment variable `LIBRA2_CLI_PATH` to the full path of the CLI.
+* `poetry run python -m libra2_sdk.cli` and set the appropriate command-line parameters
 
 ## Semantic versioning
 This project follows [semver](https://semver.org/) as closely as possible
 
-[repo]: https://github.com/aptos-labs/aptos-core
-[pypi-image-version]: https://img.shields.io/pypi/v/aptos-sdk.svg
-[pypi-image-downloads]: https://img.shields.io/pypi/dm/aptos-sdk.svg
-[pypi-url]: https://pypi.org/project/aptos-sdk
+[repo]: https://github.com/libra2org/libra2-python-sdk
+[pypi-image-version]: https://img.shields.io/pypi/v/libra2-sdk.svg
+[pypi-image-downloads]: https://img.shields.io/pypi/dm/libra2-sdk.svg
+[pypi-url]: https://pypi.org/project/libra2-sdk
 [discord-image]: https://img.shields.io/discord/945856774056083548?label=Discord&logo=discord&style=flat~~~~
 [discord-url]: https://discord.gg/aptosnetwork

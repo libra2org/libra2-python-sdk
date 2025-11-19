@@ -1,4 +1,5 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 import asyncio
@@ -7,12 +8,12 @@ import typing
 import unittest
 import unittest.mock
 
-from aptos_sdk.account import Account
-from aptos_sdk.account_address import AccountAddress
-from aptos_sdk.account_sequence_number import AccountSequenceNumber
-from aptos_sdk.async_client import RestClient
-from aptos_sdk.bcs import Serializer
-from aptos_sdk.transactions import (
+from libra2_sdk.account import Account
+from libra2_sdk.account_address import AccountAddress
+from libra2_sdk.account_sequence_number import AccountSequenceNumber
+from libra2_sdk.async_client import RestClient
+from libra2_sdk.bcs import Serializer
+from libra2_sdk.transactions import (
     EntryFunction,
     SignedTransaction,
     TransactionArgument,
@@ -193,11 +194,11 @@ class Test(unittest.IsolatedAsyncioTestCase):
         )
 
         seq_num_patcher = unittest.mock.patch(
-            "aptos_sdk.async_client.RestClient.account_sequence_number", return_value=0
+            "libra2_sdk.async_client.RestClient.account_sequence_number", return_value=0
         )
         seq_num_patcher.start()
         submit_txn_patcher = unittest.mock.patch(
-            "aptos_sdk.async_client.RestClient.submit_bcs_transaction",
+            "libra2_sdk.async_client.RestClient.submit_bcs_transaction",
             return_value="0xff",
         )
         submit_txn_patcher.start()
@@ -216,7 +217,7 @@ class Test(unittest.IsolatedAsyncioTestCase):
         submit_txn_patcher.stop()
         exception = Exception("Power overwhelming")
         submit_txn_patcher = unittest.mock.patch(
-            "aptos_sdk.async_client.RestClient.submit_bcs_transaction",
+            "libra2_sdk.async_client.RestClient.submit_bcs_transaction",
             side_effect=exception,
         )
         submit_txn_patcher.start()

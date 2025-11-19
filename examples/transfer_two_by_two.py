@@ -1,12 +1,13 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 import asyncio
 import os
 
-from aptos_sdk.account import Account
-from aptos_sdk.async_client import ClientConfig, FaucetClient, RestClient
-from aptos_sdk.transactions import Script, ScriptArgument, TransactionPayload
+from libra2_sdk.account import Account
+from libra2_sdk.async_client import ClientConfig, FaucetClient, RestClient
+from libra2_sdk.transactions import Script, ScriptArgument, TransactionPayload
 
 from .common import API_KEY, FAUCET_AUTH_TOKEN, FAUCET_URL, NODE_URL
 

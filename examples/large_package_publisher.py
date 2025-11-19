@@ -1,25 +1,26 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 """
 This example depends on the MoonCoin.move module having already been published to the destination blockchain.
 One method to do so is to use the CLI:
-    * Acquire the Aptos CLI, see https://aptos.dev/cli-tools/aptos-cli-tool/install-aptos-cli
-    * `python -m examples.your-coin ~/aptos-core/aptos-move/move-examples/moon_coin`.
-    * Open another terminal and `aptos move compile --package-dir ~/aptos-core/aptos-move/move-examples/moon_coin --save-metadata --named-addresses MoonCoin=<Alice address from above step>`.
+    * Acquire the Libra2 CLI, see https://libra2.org
+    * `python -m examples.your-coin ~/libra2-core/libra2-move/move-examples/moon_coin`.
+    * Open another terminal and `libra2 move compile --package-dir ~/libra2-core/libra2-move/move-examples/moon_coin --save-metadata --named-addresses MoonCoin=<Alice address from above step>`.
     * Return to the first terminal and press enter.
 """
 import asyncio
 import os
 import sys
 
-import aptos_sdk.cli as aptos_sdk_cli
-from aptos_sdk.account import Account
-from aptos_sdk.account_address import AccountAddress
-from aptos_sdk.aptos_cli_wrapper import AptosCLIWrapper
-from aptos_sdk.async_client import ClientConfig, FaucetClient, RestClient
-from aptos_sdk.package_publisher import MODULE_ADDRESS, PackagePublisher
+import libra2_sdk.cli as libra2_sdk_cli
+from libra2_sdk.account import Account
+from libra2_sdk.account_address import AccountAddress
+from libra2_sdk.libra2_cli_wrapper import Libra2CLIWrapper
+from libra2_sdk.async_client import ClientConfig, FaucetClient, RestClient
+from libra2_sdk.package_publisher import MODULE_ADDRESS, PackagePublisher
 
-from .common import API_KEY, APTOS_CORE_PATH, FAUCET_AUTH_TOKEN, FAUCET_URL, NODE_URL
+from .common import API_KEY, LIBRA2_CORE_PATH, FAUCET_AUTH_TOKEN, FAUCET_URL, NODE_URL
 
 
 async def publish_large_packages(large_packages_dir) -> AccountAddress:
@@ -28,7 +29,7 @@ async def publish_large_packages(large_packages_dir) -> AccountAddress:
 
     alice = Account.generate()
     await faucet_client.fund_account(alice.address(), 1_000_000_000)
-    await aptos_sdk_cli.publish_package(
+    await libra2_sdk_cli.publish_package(
         large_packages_dir, {"large_packages": alice.address()}, alice, NODE_URL
     )
     return alice.address()
@@ -52,8 +53,8 @@ async def main(
     alice_balance = await rest_client.account_balance(alice.address())
     print(f"Alice: {alice.address()} {alice_balance}")
 
-    if AptosCLIWrapper.does_cli_exist():
-        AptosCLIWrapper.compile_package(
+    if Libra2CLIWrapper.does_cli_exist():
+        Libra2CLIWrapper.compile_package(
             large_package_example_dir, {"large_package_example": alice.address()}
         )
     else:
@@ -72,8 +73,8 @@ if __name__ == "__main__":
         large_package_example_dir = sys.argv[1]
     else:
         large_package_example_dir = os.path.join(
-            APTOS_CORE_PATH,
-            "aptos-move",
+            LIBRA2_CORE_PATH,
+            "libra2-move",
             "move-examples",
             "large_packages",
             "large_package_example",

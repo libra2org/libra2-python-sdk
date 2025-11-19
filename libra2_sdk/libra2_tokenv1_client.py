@@ -1,4 +1,5 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 from typing import Any
@@ -12,8 +13,8 @@ from .transactions import EntryFunction, TransactionArgument, TransactionPayload
 U64_MAX = 18446744073709551615
 
 
-class AptosTokenV1Client:
-    """A wrapper around reading and mutating AptosTokens also known as Token Objects"""
+class Libra2TokenV1Client:
+    """A wrapper around reading and mutating Libra2 tokens also known as Token Objects"""
 
     _client: RestClient
 

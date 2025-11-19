@@ -1,12 +1,13 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 import asyncio
 
-from aptos_sdk.account import Account
-from aptos_sdk.account_address import AccountAddress
-from aptos_sdk.aptos_token_client import AptosTokenClient, Object, Property, PropertyMap
-from aptos_sdk.async_client import ClientConfig, FaucetClient, RestClient
+from libra2_sdk.account import Account
+from libra2_sdk.account_address import AccountAddress
+from libra2_sdk.libra2_token_client import Libra2TokenClient, Object, Property, PropertyMap
+from libra2_sdk.async_client import ClientConfig, FaucetClient, RestClient
 
 from .common import API_KEY, FAUCET_URL, NODE_URL
 
@@ -14,7 +15,7 @@ from .common import API_KEY, FAUCET_URL, NODE_URL
 async def main():
     rest_client = RestClient(NODE_URL, client_config=ClientConfig(api_key=API_KEY))
     faucet_client = FaucetClient(FAUCET_URL, rest_client)
-    token_client = AptosTokenClient(rest_client)
+    token_client = Libra2TokenClient(rest_client)
     alice = Account.generate()
     bob = Account.generate()
 
@@ -43,7 +44,7 @@ async def main():
         "Alice's simple collection",
         1,
         collection_name,
-        "https://aptos.dev",
+        "https://libra2.org",
         True,
         True,
         True,
@@ -67,7 +68,7 @@ async def main():
         collection_name,
         "Alice's simple token",
         token_name,
-        "https://aptos.dev/img/nyan.jpeg",
+        "https://libra2.org",
         PropertyMap([Property.string("string", "string value")]),
     )
     await rest_client.wait_for_transaction(txn_hash)

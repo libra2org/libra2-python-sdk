@@ -1,4 +1,5 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import annotations
@@ -320,7 +321,7 @@ class ReadObject:
         return response
 
 
-class AptosTokenClient:
+class Libra2TokenClient:
     """A wrapper around reading and mutating Digital Assets also known as Token Objects"""
 
     client: RestClient
@@ -403,7 +404,7 @@ class AptosTokenClient:
         royalty_numerator: int,
         royalty_denominator: int,
     ) -> str:  # <:!:create_collection
-        payload = AptosTokenClient.create_collection_payload(
+        payload = Libra2TokenClient.create_collection_payload(
             description,
             max_supply,
             name,
@@ -469,7 +470,7 @@ class AptosTokenClient:
         uri: str,
         properties: PropertyMap,
     ) -> str:  # <:!:mint_token
-        payload = AptosTokenClient.mint_token_payload(
+        payload = Libra2TokenClient.mint_token_payload(
             collection, description, name, uri, properties
         )
         signed_transaction = await self.client.create_bcs_signed_transaction(

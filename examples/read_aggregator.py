@@ -1,10 +1,11 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 import asyncio
 
-from aptos_sdk.account_address import AccountAddress
-from aptos_sdk.async_client import ClientConfig, RestClient
+from libra2_sdk.account_address import AccountAddress
+from libra2_sdk.async_client import ClientConfig, RestClient
 
 from .common import API_KEY, NODE_URL
 
