@@ -1,4 +1,5 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import annotations
@@ -10,14 +11,14 @@ from multiprocessing import Pipe, Process
 from multiprocessing.connection import Connection
 from typing import Any, List
 
-from aptos_sdk.account import Account
-from aptos_sdk.account_address import AccountAddress
-from aptos_sdk.account_sequence_number import AccountSequenceNumber
-from aptos_sdk.aptos_token_client import AptosTokenClient, Property, PropertyMap
-from aptos_sdk.async_client import ClientConfig, FaucetClient, RestClient
-from aptos_sdk.bcs import Serializer
-from aptos_sdk.transaction_worker import TransactionWorker
-from aptos_sdk.transactions import (
+from libra2_sdk.account import Account
+from libra2_sdk.account_address import AccountAddress
+from libra2_sdk.account_sequence_number import AccountSequenceNumber
+from libra2_sdk.libra2_token_client import Libra2TokenClient, Property, PropertyMap
+from libra2_sdk.async_client import ClientConfig, FaucetClient, RestClient
+from libra2_sdk.bcs import Serializer
+from libra2_sdk.transaction_worker import TransactionWorker
+from libra2_sdk.transactions import (
     EntryFunction,
     SignedTransaction,
     TransactionArgument,
@@ -233,11 +234,11 @@ async def token_transaction(
 ) -> SignedTransaction:
     collection_name = "Funky Alice's"
     if sequence_number == 8351:
-        payload = AptosTokenClient.create_collection_payload(
+        payload = Libra2TokenClient.create_collection_payload(
             "Alice's simple collection",
             20000000000,
             collection_name,
-            "https://aptos.dev",
+            "https://libra2.org",
             True,
             True,
             True,
@@ -251,11 +252,11 @@ async def token_transaction(
             1,
         )
     else:
-        payload = AptosTokenClient.mint_token_payload(
+        payload = Libra2TokenClient.mint_token_payload(
             collection_name,
             "Alice's simple token",
             f"token {sequence_number}",
-            "https://aptos.dev/img/nyan.jpeg",
+            "https://libra2.org",
             PropertyMap([Property.string("string", "string value")]),
         )
     return await client.create_bcs_signed_transaction(sender, payload, sequence_number)

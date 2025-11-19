@@ -1,4 +1,5 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ from .account_address import AccountAddress
 from .async_client import FaucetClient, RestClient
 
 # Assume that the binary is in the global path if one is not provided.
-DEFAULT_BINARY = os.getenv("APTOS_CLI_PATH", "aptos")
+DEFAULT_BINARY = os.getenv("LIBRA2_CLI_PATH", "libra2")
 LOCAL_FAUCET = "http://127.0.0.1:8081"
 LOCAL_NODE = "http://127.0.0.1:8080/v1"
 
@@ -24,8 +25,8 @@ LOCAL_NODE = "http://127.0.0.1:8080/v1"
 MAXIMUM_WAIT_TIME_SEC = 30
 
 
-class AptosCLIWrapper:
-    """Tooling to make easy access to the Aptos CLI tool from within Python."""
+class Libra2CLIWrapper:
+    """Tooling to make easy access to the Libra2 CLI tool from within Python."""
 
     @staticmethod
     def prepare_named_addresses(
@@ -46,7 +47,7 @@ class AptosCLIWrapper:
 
     @staticmethod
     def compile_package(package_dir: str, named_addresses: Dict[str, AccountAddress]):
-        AptosCLIWrapper.assert_cli_exists()
+        Libra2CLIWrapper.assert_cli_exists()
         args = [
             DEFAULT_BINARY,
             "move",
@@ -55,20 +56,20 @@ class AptosCLIWrapper:
             "--package-dir",
             package_dir,
         ]
-        args.extend(AptosCLIWrapper.prepare_named_addresses(named_addresses))
+        args.extend(Libra2CLIWrapper.prepare_named_addresses(named_addresses))
 
         process_output = subprocess.run(args, capture_output=True)
         if process_output.returncode != 0:
             raise CLIError(args, process_output.stdout, process_output.stderr)
 
     @staticmethod
-    def start_node() -> AptosInstance:
-        AptosCLIWrapper.assert_cli_exists()
-        return AptosInstance.start()
+    def start_node() -> Libra2Instance:
+        Libra2CLIWrapper.assert_cli_exists()
+        return Libra2Instance.start()
 
     @staticmethod
     def test_package(package_dir: str, named_addresses: Dict[str, AccountAddress]):
-        AptosCLIWrapper.assert_cli_exists()
+        Libra2CLIWrapper.assert_cli_exists()
         args = [
             DEFAULT_BINARY,
             "move",
@@ -76,7 +77,7 @@ class AptosCLIWrapper:
             "--package-dir",
             package_dir,
         ]
-        args.extend(AptosCLIWrapper.prepare_named_addresses(named_addresses))
+        args.extend(Libra2CLIWrapper.prepare_named_addresses(named_addresses))
 
         process_output = subprocess.run(args, capture_output=True)
         if process_output.returncode != 0:
@@ -84,7 +85,7 @@ class AptosCLIWrapper:
 
     @staticmethod
     def assert_cli_exists():
-        if not AptosCLIWrapper.does_cli_exist():
+        if not Libra2CLIWrapper.does_cli_exist():
             raise MissingCLIError()
 
     @staticmethod
@@ -96,7 +97,7 @@ class MissingCLIError(Exception):
     """The CLI was not found in the expected path."""
 
     def __init__(self):
-        super().__init__("The CLI was not found in the expected path, {DEFAULT_BINARY}")
+        super().__init__(f"The CLI was not found in the expected path, {DEFAULT_BINARY}")
 
 
 class CLIError(Exception):
@@ -108,12 +109,12 @@ class CLIError(Exception):
         )
 
 
-class AptosInstance:
+class Libra2Instance:
     """
-    A standalone Aptos node running by itself. This still needs a bit of work:
+    A standalone Libra2 node running by itself. This still needs a bit of work:
     * a test instance should be loaded into its own port space. Currently they share ports as
       those are not configurable without a config file. As a result, it is possible that two
-      test runs may share a single AptosInstance and both successfully complete.
+      test runs may share a single Libra2Instance and both successfully complete.
     * Probably need some means to monitor the process in case it stops, as we aren't actively
       monitoring this.
     """
@@ -155,7 +156,7 @@ class AptosInstance:
         out_thread.start()
 
     @staticmethod
-    def start() -> AptosInstance:
+    def start() -> Libra2Instance:
         temp_dir = tempfile.TemporaryDirectory()
         args = [
             DEFAULT_BINARY,
@@ -170,7 +171,7 @@ class AptosInstance:
         node_runner = subprocess.Popen(
             args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
         )
-        return AptosInstance(node_runner, temp_dir)
+        return Libra2Instance(node_runner, temp_dir)
 
     def stop(self):
         self._node_runner.terminate()

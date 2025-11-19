@@ -1,6 +1,6 @@
-# Aptos Python SDK Changelog
+# Libra2 Python SDK Changelog
 
-All notable changes to the Aptos Python SDK will be captured in this file. This changelog is written by hand for now.
+All notable changes to the Libra2 Python SDK will be captured in this file. This changelog is written by hand for now.
 
 ## Unreleased
 - Update dependencies for vulnerability fixes
@@ -66,7 +66,7 @@ All notable changes to the Aptos Python SDK will be captured in this file. This 
 - Updated token client to use events to acquire minted tokens
 - Update many dependencies and set Python 3.8.1 as the minimum requirement
 - Add support for an experimental chunked uploader
-- Add experimental support for the Aptos CLI enabling local end-to-end testing, package building, and package integration tests
+- Add experimental support for the Libra2 CLI enabling local end-to-end testing, package building, and package integration tests
 
 ## 0.6.4
 - Change sync client library from httpX to requests due to latency concerns.

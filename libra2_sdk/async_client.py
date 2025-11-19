@@ -1,4 +1,5 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 import asyncio
@@ -41,7 +42,7 @@ class ClientConfig:
 
 
 class IndexerClient:
-    """A wrapper around the Aptos Indexer Service on Hasura"""
+    """A wrapper around the Libra2 Indexer Service on Hasura"""
 
     client: python_graphql_client.GraphqlClient
 
@@ -58,7 +59,7 @@ class IndexerClient:
 
 
 class RestClient:
-    """A wrapper around the Aptos-core Rest API"""
+    """A wrapper around the Libra2-core Rest API"""
 
     _chain_id: Optional[int]
     client: httpx.AsyncClient
@@ -123,12 +124,12 @@ class RestClient:
         coin_type: Optional[str] = None,
     ) -> int:
         """
-        Fetch the Aptos coin balance associated with the account.
+        Fetch the Libra2 coin balance associated with the account.
 
         :param account_address: Address of the account, with or without a '0x' prefix.
         :param ledger_version: Ledger version to get state of account. If not provided, it will be the latest version.
         :param coin_type: Coin type to get balance for, defaults to "0x1::aptos_coin::AptosCoin".
-        :return: The Aptos coin balance associated with the account
+        :return: The Libra2 coin balance associated with the account
         """
         coin_type = coin_type or "0x1::aptos_coin::AptosCoin"
         result = await self.view_bcs_payload(
@@ -167,7 +168,7 @@ class RestClient:
         """
         Retrieves an individual resource from a given account and at a specific ledger version.
 
-        The Aptos nodes prune account state history, via a configurable time window. If the requested ledger version
+        The Libra2 nodes prune account state history, via a configurable time window. If the requested ledger version
         has been pruned, the server responds with a 410.
 
         :param account_address: Address of the account, with or without a '0x' prefix.
@@ -193,7 +194,7 @@ class RestClient:
         """
         Retrieves all account resources for a given account and a specific ledger version.
 
-        The Aptos nodes prune account state history, via a configurable time window. If the requested ledger version
+        The Libra2 nodes prune account state history, via a configurable time window. If the requested ledger version
         has been pruned, the server responds with a 410.
 
         :param account_address: Address of the account, with or without a '0x' prefix.
@@ -219,7 +220,7 @@ class RestClient:
         """
         Retrieves an individual module from a given account and at a specific ledger version.
 
-        The Aptos nodes prune account state history, via a configurable time window. If the requested ledger version
+        The Libra2 nodes prune account state history, via a configurable time window. If the requested ledger version
         has been pruned, the server responds with a 410.
 
         :param account_address: Address of the account, with or without a '0x' prefix.
@@ -246,7 +247,7 @@ class RestClient:
         """
         Retrieves all account modules' bytecode for a given account at a specific ledger version.
 
-        The Aptos nodes prune account state history, via a configurable time window. If the requested ledger version
+        The Libra2 nodes prune account state history, via a configurable time window. If the requested ledger version
         has been pruned, the server responds with a 410.
 
         :param account_address: Address of the account, with or without a '0x' prefix.
@@ -806,7 +807,7 @@ class RestClient:
         """
         Execute a view Move function with the given parameters and return its execution result.
 
-        The Aptos nodes prune account state history, via a configurable time window. If the requested ledger version
+        The Libra2 nodes prune account state history, via a configurable time window. If the requested ledger version
         has been pruned, the server responds with a 410.
 
         :param function: Entry function id is string representation of an entry function defined on-chain.
@@ -849,7 +850,7 @@ class RestClient:
         view function in bcs format. This is convenient for clients that execute functions in
         transactions similar to view functions.
 
-        The Aptos nodes prune account state history, via a configurable time window. If the requested ledger version
+        The Libra2 nodes prune account state history, via a configurable time window. If the requested ledger version
         has been pruned, the server responds with a 410.
 
         :param function: Entry function id is string representation of an entry function defined on-chain.

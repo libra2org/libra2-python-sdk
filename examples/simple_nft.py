@@ -1,12 +1,13 @@
 # Copyright © Aptos Foundation
+# Copyright © Libra2 Research
 # SPDX-License-Identifier: Apache-2.0
 
 import asyncio
 import json
 
-from aptos_sdk.account import Account
-from aptos_sdk.aptos_tokenv1_client import AptosTokenV1Client
-from aptos_sdk.async_client import ClientConfig, FaucetClient, RestClient
+from libra2_sdk.account import Account
+from libra2_sdk.libra2_tokenv1_client import Libra2TokenV1Client
+from libra2_sdk.async_client import ClientConfig, FaucetClient, RestClient
 
 from .common import API_KEY, FAUCET_AUTH_TOKEN, FAUCET_URL, NODE_URL
 
@@ -14,7 +15,7 @@ from .common import API_KEY, FAUCET_AUTH_TOKEN, FAUCET_URL, NODE_URL
 async def main():
     rest_client = RestClient(NODE_URL, client_config=ClientConfig(api_key=API_KEY))
     faucet_client = FaucetClient(FAUCET_URL, rest_client, FAUCET_AUTH_TOKEN)
-    token_client = AptosTokenV1Client(rest_client)
+    token_client = Libra2TokenV1Client(rest_client)
 
     # :!:>section_2
     alice = Account.generate()
@@ -44,7 +45,7 @@ async def main():
 
     # :!:>section_4
     txn_hash = await token_client.create_collection(
-        alice, collection_name, "Alice's simple collection", "https://aptos.dev"
+        alice, collection_name, "Alice's simple collection", "https://libra2.org"
     )  # <:!:section_4
     await rest_client.wait_for_transaction(txn_hash)
 
@@ -55,7 +56,7 @@ async def main():
         token_name,
         "Alice's simple token",
         1,
-        "https://aptos.dev/img/nyan.jpeg",
+        "https://libra2.org",
         0,
     )  # <:!:section_5
     await rest_client.wait_for_transaction(txn_hash)
